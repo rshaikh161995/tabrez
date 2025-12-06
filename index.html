@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tax Invoice - Saara Impex</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 10px;
+            background: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        .invoice-container {
+            width: 210mm;
+            min-height: 297mm;
+            max-width: 100%;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            page-break-after: always;
+        }
+
+        @media screen and (max-width: 210mm) {
+            .invoice-container {
+                width: 100%;
+                min-height: auto;
+            }
+        }
+
+        .header {
+            background: linear-gradient(135deg, #e8e4f3 0%, #d4d1e3 100%);
+            border: 2px solid #000;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .header-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            max-height: 380px;
+            object-fit: cover;
+        }
+
+        @media (max-width: 768px) {
+            .header-image {
+                max-height: 340px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-image {
+                max-height: 100px;
+            }
+        }
+
+        .content {
+            padding: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 0;
+        }
+
+        td,
+        th {
+            border: 1px solid #000;
+            padding: 4px 6px;
+            font-size: 11px;
+        }
+
+        .editable {
+            border: none;
+            background: transparent;
+            width: 100%;
+            padding: 1px;
+            font-family: inherit;
+            font-size: inherit;
+        }
+
+        .editable:focus {
+            outline: 2px solid #4CAF50;
+            background: #f0f8ff;
+        }
+
+        .section-header {
+            background: #e0e0e0;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .right-align {
+            text-align: right;
+        }
+
+        .center-align {
+            text-align: center;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+
+        .total-row {
+            font-weight: bold;
+            background: #f5f5f5;
+        }
+
+        .original-label {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .btn-container {
+            margin: 10px 0;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 8px 16px;
+            border: none;
+            cursor: pointer;
+            font-size: 13px;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .btn-add {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .btn-add:hover {
+            background: #45a049;
+        }
+
+        .btn-remove {
+            background: #f44336;
+            color: white;
+        }
+
+        .btn-remove:hover {
+            background: #da190b;
+        }
+
+        .btn-calculate {
+            background: #2196F3;
+            color: white;
+        }
+
+        .btn-calculate:hover {
+            background: #0b7dda;
+        }
+
+        .btn-print {
+            background: #FF9800;
+            color: white;
+        }
+
+        .btn-print:hover {
+            background: #e68900;
+        }
+
+        input[type="number"] {
+            text-align: right;
+        }
+
+        .declaration {
+            border: 1px solid #000;
+            padding: 8px;
+            margin-top: 5px;
+            font-size: 10px;
+        }
+
+        .jurisdiction {
+            border: 1px solid #000;
+            padding: 8px;
+            margin-top: 3px;
+            font-size: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        @media print {
+            @page {
+                size: A4;
+                margin: 0;
+            }
+
+            body {
+                background: white;
+                padding: 0;
+                margin: 0;
+            }
+
+            .invoice-container {
+                width: 210mm;
+                min-height: 297mm;
+                box-shadow: none;
+                margin: 0;
+                page-break-after: always;
+            }
+
+            .btn-container {
+                display: none !important;
+            }
+
+            .header-image {
+                max-height: 150mm;
+            }
+        }
+
+        .delete-btn {
+            background: #f44336;
+            color: white;
+            border: none;
+            padding: 3px 6px;
+            cursor: pointer;
+            border-radius: 3px;
+            font-size: 10px;
+        }
+
+        .delete-btn:hover {
+            background: #da190b;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="invoice-container">
+        <!-- <div class="header">
+            <img src="images/3ea87b7a-f7aa-4360-b999-bcf42826afc7.jpeg" alt="Saara Impex Header" class="header-image"
+                id="headerImage" onerror="this.style.display='none'">
+        </div> -->
+
+        <div class="content">
+            <table>
+                <tr>
+                    <td colspan="3" class="header-row bold center-align" style="font-size: 16px;">TAX INVOICE</td>
+                    <td class="bold">Invoice No.</td>
+                    <td>: <input type="text" class="editable"></td>
+                </tr>
+                <tr>
+                    <td colspan="3" rowspan="3" style="vertical-align: top;">
+
+                     <p class="bold" style="margin:0; font-weight: bold; color: blue; font-size: 24px; text-transform: uppercase; text-shadow: 2px 2px 4px #c8c0c0;">
+    SAARA IMPEX
+</p>
+
+                        <p style="margin:0 0 8px 0;font-weight: 400;">
+                            Plot No. 42, Gr. Floor, Parmanand Industrial Society,<br>
+                            Nr Jogimata Mandir, Udhna Magdalla Road, Surat
+                        </p>
+
+                        
+
+                        <p style="margin:0 0 8px 0;font-weight: bold;">
+                            GST No.24LXZPS9106G1ZJ
+                        </p>
+                         <p style="margin:0 0 8px 0;font-weight: bold;">
+                           Tabrez<br>
+                            9833629486 / 7575040185
+                        </p>
+
+
+                    </td>
+
+                    <td class="bold">Invoice Date</td>
+                    <td>: <input type="date" class="editable"></td>
+                </tr>
+                <tr>
+                    <td class="bold">Ord.Refrence</td>
+                    <td>: <input type="text" class="editable"></td>
+                </tr>
+                <tr>
+                    <td class="bold">L.R.No.</td>
+                    <td>: <input type="text" class="editable" style="width: 60px;"> <span class="bold">arcel :</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="bold">GSTIN :</td>
+                    <td colspan="2"><input type="text" class="editable"></td>
+                    <td class="bold">L.R.Date</td>
+                    <td>: <input type="date" class="editable" style="width: 140px;"> <span class="bold">eight :</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="bold">State :</td>
+                    <td colspan="2"><input type="text" class="editable"></td>
+                    <td class="bold">Transporter</td>
+                    <td>: <input type="text" class="editable"></td>
+                </tr>
+                <tr>
+                    <td class="bold">Phone:</td>
+                    <td colspan="2"><input type="text" class="editable"></td>
+                    <td class="bold">Vehicle No.</td>
+                    <td>: <input type="text" class="editable" style="width: 100px;"> <span class="bold">reight :</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="bold">E mail :</td>
+                    <td colspan="4"><input type="text" class="editable"></td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="bold center-align">Buyer</td>
+                    <td colspan="2" class="bold center-align">Consignee</td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="vertical-align: top;">
+                        <input type="text" class="editable" placeholder="Buyer company name"
+                            style="font-weight: bold; margin-bottom: 5px;">
+                        <input type="text" class="editable" placeholder="Buyer address">
+                    </td>
+                    <td colspan="2" style="vertical-align: top;">
+                        <input type="text" class="editable" placeholder="Consignee company name"
+                            style="font-weight: bold; margin-bottom: 5px;">
+                        <input type="text" class="editable" placeholder="Consignee address">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="bold">State :</td>
+                    <td colspan="2"><input type="text" class="editable"></td>
+                    <td class="bold">State :</td>
+                    <td><input type="text" class="editable"></td>
+                </tr>
+                <tr>
+                    <td class="bold">GSTIN :</td>
+                    <td style="border-right: none;"><input type="text" class="editable"></td>
+                    <td class="bold" style="border-left: none;">Broker :</td>
+                    <td class="bold">GSTIN :</td>
+                    <td><input type="text" class="editable"></td>
+                </tr>
+            </table>
+
+            <div class="btn-container">
+                <!-- <button class="btn-add" onclick="document.getElementById('imageUpload').click()">📷 Upload Header Image</button> -->
+                <!-- <input type="file" id="imageUpload" accept="image/*" style="display: none;" onchange="loadHeaderImage(event)"> -->
+                <button class="btn-add" onclick="addRow()">+ Add Item Row</button>
+                <button class="btn-calculate" onclick="calculateTotal()">Calculate Total</button>
+                <button class="btn-print" onclick="window.print()">Print Invoice</button>
+            </div>
+
+            <table style="margin-top: 0;">
+                <thead>
+                    <tr class="section-header">
+                        <th style="width: 40px;">Sr No.</th>
+                        <th>Description</th>
+                        <th style="width: 70px;">HSN</th>
+                        <th style="width: 60px;">GST<br>Rate(%)</th>
+                        <th style="width: 90px;">Meters</th>
+                        <th style="width: 60px;">Pcs</th>
+                        <th style="width: 90px;">Rate</th>
+                        <th style="width: 60px;">Disc<br>Rate(%)</th>
+                        <th style="width: 80px;">Disc<br>Amount</th>
+                        <th style="width: 100px;">Amount</th>
+                        <th style="width: 50px;">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="invoiceItems">
+                    <tr>
+                        <td class="center-align">1</td>
+                        <td><input type="text" class="editable" placeholder="Item description"></td>
+                        <td><input type="text" class="editable center-align" placeholder="9988"></td>
+                        <td><input type="text" class="editable center-align" placeholder="5"></td>
+                        <td><input type="number" step="0.01" class="editable right-align meter-input"
+                                placeholder="0.00"></td>
+                        <td><input type="text" class="editable center-align"></td>
+                        <td><input type="number" step="0.01" class="editable right-align rate-input" placeholder="0.00">
+                        </td>
+                        <td><input type="text" class="editable center-align"></td>
+                        <td><input type="text" class="editable"></td>
+                        <td><input type="number" step="0.01" class="editable right-align amount-input"
+                                placeholder="0.00"></td>
+                        <td class="center-align"><button class="delete-btn" onclick="deleteRow(this)">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr class="total-row">
+                        <td colspan="4" class="right-align">Total</td>
+                        <td class="right-align" id="totalMeters">0.00</td>
+                        <td></td>
+                        <td></td>
+                        <td colspan="2" class="right-align">0.00</td>
+                        <td class="right-align" id="totalAmount">0.00</td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <table style="margin-top: 0;">
+                <tr>
+                    <td colspan="5" class="bold">Bank Detail</td>
+                    <td rowspan="3" colspan="3"></td>
+                </tr>
+                <tr>
+                    <td colspan="5"><span class="bold">Bank :</span> <input type="text" class="editable"
+                            placeholder="Bank name"></td>
+                </tr>
+                <tr>
+                    <td colspan="5"><span class="bold">A/c.No:</span> <input type="text" class="editable"
+                            placeholder="Account number"></td>
+                </tr>
+                <tr>
+                    <td colspan="5"><span class="bold">IFSC :</span> <input type="text" class="editable"
+                            placeholder="IFSC code"></td>
+                    <td colspan="3" class="bold right-align">Net Amount</td>
+                </tr>
+                <tr>
+                    <td colspan="8" class="bold">In Word : <input type="text" class="editable"
+                            placeholder="Amount in words" style="width: 85%;"></td>
+                </tr>
+            </table>
+
+            <table style="margin-top: 0;">
+                <tr class="section-header">
+                    <td colspan="10">GST Summary</td>
+                </tr>
+                <tr class="bold center-align">
+                    <td>GST%</td>
+                    <td>Taxable<br>Value</td>
+                    <td colspan="2">CGST</td>
+                    <td colspan="2">SGST</td>
+                    <td colspan="2">IGST</td>
+                    <td colspan="2">CESS</td>
+                </tr>
+                <tr class="bold center-align">
+                    <td></td>
+                    <td></td>
+                    <td>Rate(%)</td>
+                    <td>Amount</td>
+                    <td>Rate(%)</td>
+                    <td>Amount</td>
+                    <td>Rate(%)</td>
+                    <td>Amount</td>
+                    <td>Rate(%)</td>
+                    <td>Amount</td>
+                </tr>
+                <tr class="center-align">
+                    <td><input type="text" class="editable center-align" placeholder="5"></td>
+                    <td><input type="number" step="0.01" class="editable right-align" id="gstTaxable"
+                            placeholder="0.00"></td>
+                    <td><input type="text" class="editable center-align"></td>
+                    <td><input type="number" step="0.01" class="editable right-align"></td>
+                    <td><input type="text" class="editable center-align"></td>
+                    <td><input type="number" step="0.01" class="editable right-align"></td>
+                    <td><input type="text" class="editable center-align"></td>
+                    <td><input type="number" step="0.01" class="editable right-align"></td>
+                    <td><input type="text" class="editable center-align"></td>
+                    <td><input type="number" step="0.01" class="editable right-align"></td>
+                </tr>
+                <tr class="bold right-align">
+                    <td></td>
+                    <td id="gstTaxableTotal">0.00</td>
+                    <td></td>
+                    <td>0.00</td>
+                    <td></td>
+                    <td>0.00</td>
+                    <td></td>
+                    <td>0.00</td>
+                    <td></td>
+                    <td>0.00</td>
+                </tr>
+            </table>
+
+            <div class="declaration">
+                <div style="display: flex; justify-content: space-between;">
+                    <div>
+                        <div class="bold">Declaration</div>
+                        <div>We Declare that this invoice shows the actual the price of the goods<br>
+                            described and that all particulars are true and correct</div>
+                    </div>
+                    <div class="center-align">
+                        <div>Common Seal</div>
+                    </div>
+                    <div class="right-align">
+                        <div class="bold">For SAARA IMPEX</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="jurisdiction">
+                <div class="bold">Subject to SURAT Jurisdiction</div>
+                <div class="bold">Authorised Signature</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let rowCounter = 1;
+
+        function loadHeaderImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const headerImg = document.getElementById('headerImage');
+                    headerImg.src = e.target.result;
+                    headerImg.style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function addRow() {
+            rowCounter++;
+            const tbody = document.getElementById('invoiceItems');
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td class="center-align">${rowCounter}</td>
+                <td><input type="text" class="editable" placeholder="Item description"></td>
+                <td><input type="text" class="editable center-align" placeholder="9988"></td>
+                <td><input type="text" class="editable center-align" placeholder="5"></td>
+                <td><input type="number" step="0.01" class="editable right-align meter-input" placeholder="0.00"></td>
+                <td><input type="text" class="editable center-align"></td>
+                <td><input type="number" step="0.01" class="editable right-align rate-input" placeholder="0.00"></td>
+                <td><input type="text" class="editable center-align"></td>
+                <td><input type="text" class="editable"></td>
+                <td><input type="number" step="0.01" class="editable right-align amount-input" placeholder="0.00"></td>
+                <td class="center-align"><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
+            `;
+            tbody.appendChild(newRow);
+
+            // Add auto-calculation on meter/rate change
+            const meterInput = newRow.querySelector('.meter-input');
+            const rateInput = newRow.querySelector('.rate-input');
+            const amountInput = newRow.querySelector('.amount-input');
+
+            meterInput.addEventListener('input', () => autoCalculateAmount(meterInput, rateInput, amountInput));
+            rateInput.addEventListener('input', () => autoCalculateAmount(meterInput, rateInput, amountInput));
+        }
+
+        function deleteRow(btn) {
+            const row = btn.closest('tr');
+            row.remove();
+            updateRowNumbers();
+            calculateTotal();
+        }
+
+        function updateRowNumbers() {
+            const rows = document.querySelectorAll('#invoiceItems tr');
+            rows.forEach((row, index) => {
+                row.cells[0].textContent = index + 1;
+            });
+            rowCounter = rows.length;
+        }
+
+        function autoCalculateAmount(meterInput, rateInput, amountInput) {
+            const meters = parseFloat(meterInput.value) || 0;
+            const rate = parseFloat(rateInput.value) || 0;
+            const amount = meters * rate;
+            amountInput.value = amount.toFixed(2);
+        }
+
+        function calculateTotal() {
+            const rows = document.querySelectorAll('#invoiceItems tr');
+            let totalMeters = 0;
+            let totalAmount = 0;
+
+            rows.forEach(row => {
+                const meterInput = row.querySelector('.meter-input');
+                const amountInput = row.querySelector('.amount-input');
+
+                if (meterInput && amountInput) {
+                    totalMeters += parseFloat(meterInput.value) || 0;
+                    totalAmount += parseFloat(amountInput.value) || 0;
+                }
+            });
+
+            document.getElementById('totalMeters').textContent = totalMeters.toFixed(2);
+            document.getElementById('totalAmount').textContent = totalAmount.toFixed(2);
+            document.getElementById('gstTaxable').value = totalAmount.toFixed(2);
+            document.getElementById('gstTaxableTotal').textContent = totalAmount.toFixed(2);
+        }
+
+        // Add auto-calculation for initial row
+        document.addEventListener('DOMContentLoaded', function () {
+            const firstRow = document.querySelector('#invoiceItems tr');
+            const meterInput = firstRow.querySelector('.meter-input');
+            const rateInput = firstRow.querySelector('.rate-input');
+            const amountInput = firstRow.querySelector('.amount-input');
+
+            meterInput.addEventListener('input', () => autoCalculateAmount(meterInput, rateInput, amountInput));
+            rateInput.addEventListener('input', () => autoCalculateAmount(meterInput, rateInput, amountInput));
+        });
+    </script>
+</body>
+
+</html>
