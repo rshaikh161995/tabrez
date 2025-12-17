@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -39,34 +38,6 @@
             }
         }
 
-        .header {
-            background: linear-gradient(135deg, #e8e4f3 0%, #d4d1e3 100%);
-            border: 2px solid #000;
-            position: relative;
-            overflow: hidden;
-            width: 100%;
-        }
-
-        .header-image {
-            width: 100%;
-            height: auto;
-            display: block;
-            max-height: 380px;
-            object-fit: cover;
-        }
-
-        @media (max-width: 768px) {
-            .header-image {
-                max-height: 340px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .header-image {
-                max-height: 100px;
-            }
-        }
-
         .content {
             padding: 10px;
         }
@@ -77,8 +48,7 @@
             margin-bottom: 0;
         }
 
-        td,
-        th {
+        td, th {
             border: 1px solid #000;
             padding: 4px 6px;
             font-size: 11px;
@@ -121,14 +91,6 @@
             background: #f5f5f5;
         }
 
-        .original-label {
-            position: absolute;
-            right: 20px;
-            top: 15px;
-            font-weight: bold;
-            font-size: 14px;
-        }
-
         .btn-container {
             margin: 10px 0;
             display: flex;
@@ -153,15 +115,6 @@
 
         .btn-add:hover {
             background: #45a049;
-        }
-
-        .btn-remove {
-            background: #f44336;
-            color: white;
-        }
-
-        .btn-remove:hover {
-            background: #da190b;
         }
 
         .btn-calculate {
@@ -225,10 +178,6 @@
             .btn-container {
                 display: none !important;
             }
-
-            .header-image {
-                max-height: 150mm;
-            }
         }
 
         .delete-btn {
@@ -244,50 +193,41 @@
         .delete-btn:hover {
             background: #da190b;
         }
+
+        .calculated-field {
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
     </style>
 </head>
-
 <body>
     <div class="invoice-container">
-        <!-- <div class="header">
-            <img src="images/3ea87b7a-f7aa-4360-b999-bcf42826afc7.jpeg" alt="Saara Impex Header" class="header-image"
-                id="headerImage" onerror="this.style.display='none'">
-        </div> -->
-
         <div class="content">
             <table>
                 <tr>
                     <td colspan="3" class="header-row bold center-align" style="font-size: 16px;">TAX INVOICE</td>
                     <td class="bold">Invoice No.</td>
-                    <td>: <input type="text" class="editable"></td>
+                    <td>: <input type="text" class="editable" id="invoiceNo"></td>
                 </tr>
                 <tr>
                     <td colspan="3" rowspan="3" style="vertical-align: top;">
-
-                     <p class="bold" style="margin:0; font-weight: bold; color: blue; font-size: 24px; text-transform: uppercase; text-shadow: 2px 2px 4px #c8c0c0;">
-    SAARA IMPEX
-</p>
-
+                        <p class="bold" style="margin:0; font-weight: bold; color: blue; font-size: 24px; text-transform: uppercase; text-shadow: 2px 2px 4px #c8c0c0;">
+                            SAARA IMPEX
+                        </p>
                         <p style="margin:0 0 8px 0;font-weight: 400;">
                             Plot No. 42, Gr. Floor, Parmanand Industrial Society,<br>
                             Nr Jogimata Mandir, Udhna Magdalla Road, Surat
                         </p>
-
-                        
-
                         <p style="margin:0 0 8px 0;font-weight: bold;">
                             GST No.24LXZPS9106G1ZJ
                         </p>
-                         <p style="margin:0 0 8px 0;font-weight: bold;">
-                           Tabrez<br>
+                        <p style="margin:0 0 8px 0;font-weight: bold;">
+                            Tabrez<br>
                             9833629486 / 7575040185
                         </p>
-
-
                     </td>
-
                     <td class="bold">Invoice Date</td>
-                    <td>: <input type="date" class="editable"></td>
+                    <td>: <input type="date" class="editable" id="invoiceDate"></td>
                 </tr>
                 <tr>
                     <td class="bold">Ord.Refrence</td>
@@ -295,19 +235,17 @@
                 </tr>
                 <tr>
                     <td class="bold">L.R.No.</td>
-                    <td>: <input type="text" class="editable" style="width: 60px;"> <span class="bold">arcel :</span>
-                    </td>
+                    <td>: <input type="text" class="editable" style="width: 60px;"> <span class="bold">Parcel :</span></td>
                 </tr>
                 <tr>
                     <td class="bold">GSTIN :</td>
-                    <td colspan="2"><input type="text" class="editable"></td>
+                    <td colspan="2"><input type="text" class="editable" id="sellerGSTIN"></td>
                     <td class="bold">L.R.Date</td>
-                    <td>: <input type="date" class="editable" style="width: 140px;"> <span class="bold">eight :</span>
-                    </td>
+                    <td>: <input type="date" class="editable" style="width: 140px;"> <span class="bold">Weight :</span></td>
                 </tr>
                 <tr>
                     <td class="bold">State :</td>
-                    <td colspan="2"><input type="text" class="editable"></td>
+                    <td colspan="2"><input type="text" class="editable" id="sellerState" value="Gujarat"></td>
                     <td class="bold">Transporter</td>
                     <td>: <input type="text" class="editable"></td>
                 </tr>
@@ -315,8 +253,7 @@
                     <td class="bold">Phone:</td>
                     <td colspan="2"><input type="text" class="editable"></td>
                     <td class="bold">Vehicle No.</td>
-                    <td>: <input type="text" class="editable" style="width: 100px;"> <span class="bold">reight :</span>
-                    </td>
+                    <td>: <input type="text" class="editable" style="width: 100px;"> <span class="bold">Freight :</span></td>
                 </tr>
                 <tr>
                     <td class="bold">E mail :</td>
@@ -328,36 +265,32 @@
                 </tr>
                 <tr>
                     <td colspan="3" style="vertical-align: top;">
-                        <input type="text" class="editable" placeholder="Buyer company name"
-                            style="font-weight: bold; margin-bottom: 5px;">
+                        <input type="text" class="editable" placeholder="Buyer company name" style="font-weight: bold; margin-bottom: 5px;">
                         <input type="text" class="editable" placeholder="Buyer address">
                     </td>
                     <td colspan="2" style="vertical-align: top;">
-                        <input type="text" class="editable" placeholder="Consignee company name"
-                            style="font-weight: bold; margin-bottom: 5px;">
+                        <input type="text" class="editable" placeholder="Consignee company name" style="font-weight: bold; margin-bottom: 5px;">
                         <input type="text" class="editable" placeholder="Consignee address">
                     </td>
                 </tr>
                 <tr>
                     <td class="bold">State :</td>
-                    <td colspan="2"><input type="text" class="editable"></td>
+                    <td colspan="2"><input type="text" class="editable" id="buyerState"></td>
                     <td class="bold">State :</td>
-                    <td><input type="text" class="editable"></td>
+                    <td><input type="text" class="editable" id="consigneeState"></td>
                 </tr>
                 <tr>
                     <td class="bold">GSTIN :</td>
-                    <td style="border-right: none;"><input type="text" class="editable"></td>
+                    <td style="border-right: none;"><input type="text" class="editable" id="buyerGSTIN"></td>
                     <td class="bold" style="border-left: none;">Broker :</td>
                     <td class="bold">GSTIN :</td>
-                    <td><input type="text" class="editable"></td>
+                    <td><input type="text" class="editable" id="consigneeGSTIN"></td>
                 </tr>
             </table>
 
             <div class="btn-container">
-                <!-- <button class="btn-add" onclick="document.getElementById('imageUpload').click()">📷 Upload Header Image</button> -->
-                <!-- <input type="file" id="imageUpload" accept="image/*" style="display: none;" onchange="loadHeaderImage(event)"> -->
                 <button class="btn-add" onclick="addRow()">+ Add Item Row</button>
-                <button class="btn-calculate" onclick="calculateTotal()">Calculate Total</button>
+                <button class="btn-calculate" onclick="calculateAll()">Calculate All</button>
                 <button class="btn-print" onclick="window.print()">Print Invoice</button>
             </div>
 
@@ -382,27 +315,24 @@
                         <td class="center-align">1</td>
                         <td><input type="text" class="editable" placeholder="Item description"></td>
                         <td><input type="text" class="editable center-align" placeholder="9988"></td>
-                        <td><input type="text" class="editable center-align" placeholder="5"></td>
-                        <td><input type="number" step="0.01" class="editable right-align meter-input"
-                                placeholder="0.00"></td>
-                        <td><input type="text" class="editable center-align"></td>
-                        <td><input type="number" step="0.01" class="editable right-align rate-input" placeholder="0.00">
-                        </td>
-                        <td><input type="text" class="editable center-align"></td>
-                        <td><input type="text" class="editable"></td>
-                        <td><input type="number" step="0.01" class="editable right-align amount-input"
-                                placeholder="0.00"></td>
-                        <td class="center-align"><button class="delete-btn" onclick="deleteRow(this)">Delete</button>
-                        </td>
+                        <td><input type="number" step="0.01" class="editable center-align gst-rate" placeholder="5" value="5"></td>
+                        <td><input type="number" step="0.01" class="editable right-align meter-input" placeholder="0.00"></td>
+                        <td><input type="number" class="editable center-align pcs-input"></td>
+                        <td><input type="number" step="0.01" class="editable right-align rate-input" placeholder="0.00"></td>
+                        <td><input type="number" step="0.01" class="editable center-align disc-rate" placeholder="0"></td>
+                        <td><input type="number" step="0.01" class="editable right-align disc-amount calculated-field" placeholder="0.00" readonly></td>
+                        <td><input type="number" step="0.01" class="editable right-align amount-input calculated-field" placeholder="0.00" readonly></td>
+                        <td class="center-align"><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
                     </tr>
                 </tbody>
                 <tfoot>
                     <tr class="total-row">
                         <td colspan="4" class="right-align">Total</td>
                         <td class="right-align" id="totalMeters">0.00</td>
+                        <td class="right-align" id="totalPcs">0</td>
                         <td></td>
                         <td></td>
-                        <td colspan="2" class="right-align">0.00</td>
+                        <td class="right-align" id="totalDiscount">0.00</td>
                         <td class="right-align" id="totalAmount">0.00</td>
                         <td></td>
                     </tr>
@@ -412,24 +342,28 @@
             <table style="margin-top: 0;">
                 <tr>
                     <td colspan="5" class="bold">Bank Detail</td>
-                    <td rowspan="3" colspan="3"></td>
+                    <td rowspan="3" colspan="3" class="bold right-align" style="font-size: 13px; vertical-align: middle;">
+                        Taxable Amount: <span id="netTaxable">0.00</span>
+                    </td>
                 </tr>
                 <tr>
-                    <td colspan="5"><span class="bold">Bank :</span> <input type="text" class="editable"
-                            placeholder="Bank name"></td>
+                    <td colspan="5"><span class="bold">Bank :</span> <input type="text" class="editable" placeholder="Bank name"></td>
                 </tr>
                 <tr>
-                    <td colspan="5"><span class="bold">A/c.No:</span> <input type="text" class="editable"
-                            placeholder="Account number"></td>
+                    <td colspan="5"><span class="bold">A/c.No:</span> <input type="text" class="editable" placeholder="Account number"></td>
                 </tr>
                 <tr>
-                    <td colspan="5"><span class="bold">IFSC :</span> <input type="text" class="editable"
-                            placeholder="IFSC code"></td>
-                    <td colspan="3" class="bold right-align">Net Amount</td>
+                    <td colspan="5"><span class="bold">IFSC :</span> <input type="text" class="editable" placeholder="IFSC code"></td>
+                    <td colspan="3" class="bold right-align" style="font-size: 13px;">
+                        Total GST: <span id="totalGST">0.00</span>
+                    </td>
                 </tr>
                 <tr>
-                    <td colspan="8" class="bold">In Word : <input type="text" class="editable"
-                            placeholder="Amount in words" style="width: 85%;"></td>
+                    <td colspan="5" class="bold right-align" style="font-size: 14px;">Grand Total</td>
+                    <td colspan="3" class="bold right-align" style="font-size: 14px;" id="grandTotal">0.00</td>
+                </tr>
+                <tr>
+                    <td colspan="8" class="bold">In Word : <input type="text" class="editable" id="amountInWords" placeholder="Amount in words" style="width: 85%;"></td>
                 </tr>
             </table>
 
@@ -443,7 +377,7 @@
                     <td colspan="2">CGST</td>
                     <td colspan="2">SGST</td>
                     <td colspan="2">IGST</td>
-                    <td colspan="2">CESS</td>
+                    <td colspan="2">Total Tax</td>
                 </tr>
                 <tr class="bold center-align">
                     <td></td>
@@ -454,33 +388,23 @@
                     <td>Amount</td>
                     <td>Rate(%)</td>
                     <td>Amount</td>
-                    <td>Rate(%)</td>
+                    <td></td>
                     <td>Amount</td>
                 </tr>
-                <tr class="center-align">
-                    <td><input type="text" class="editable center-align" placeholder="5"></td>
-                    <td><input type="number" step="0.01" class="editable right-align" id="gstTaxable"
-                            placeholder="0.00"></td>
-                    <td><input type="text" class="editable center-align"></td>
-                    <td><input type="number" step="0.01" class="editable right-align"></td>
-                    <td><input type="text" class="editable center-align"></td>
-                    <td><input type="number" step="0.01" class="editable right-align"></td>
-                    <td><input type="text" class="editable center-align"></td>
-                    <td><input type="number" step="0.01" class="editable right-align"></td>
-                    <td><input type="text" class="editable center-align"></td>
-                    <td><input type="number" step="0.01" class="editable right-align"></td>
-                </tr>
-                <tr class="bold right-align">
-                    <td></td>
+                <tbody id="gstSummaryBody">
+                    <!-- GST rows will be dynamically added here -->
+                </tbody>
+                <tr class="bold right-align total-row">
+                    <td class="center-align">Total</td>
                     <td id="gstTaxableTotal">0.00</td>
                     <td></td>
-                    <td>0.00</td>
+                    <td id="cgstTotal">0.00</td>
                     <td></td>
-                    <td>0.00</td>
+                    <td id="sgstTotal">0.00</td>
                     <td></td>
-                    <td>0.00</td>
+                    <td id="igstTotal">0.00</td>
                     <td></td>
-                    <td>0.00</td>
+                    <td id="totalTaxAmount">0.00</td>
                 </tr>
             </table>
 
@@ -488,7 +412,7 @@
                 <div style="display: flex; justify-content: space-between;">
                     <div>
                         <div class="bold">Declaration</div>
-                        <div>We Declare that this invoice shows the actual the price of the goods<br>
+                        <div>We Declare that this invoice shows the actual price of the goods<br>
                             described and that all particulars are true and correct</div>
                     </div>
                     <div class="center-align">
@@ -510,17 +434,35 @@
     <script>
         let rowCounter = 1;
 
-        function loadHeaderImage(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    const headerImg = document.getElementById('headerImage');
-                    headerImg.src = e.target.result;
-                    headerImg.style.display = 'block';
-                }
-                reader.readAsDataURL(file);
-            }
+        // Auto-calculate on input changes
+        document.addEventListener('DOMContentLoaded', function() {
+            attachCalculationListeners();
+        });
+
+        function attachCalculationListeners() {
+            const rows = document.querySelectorAll('#invoiceItems tr');
+            rows.forEach(row => {
+                const inputs = row.querySelectorAll('.meter-input, .rate-input, .disc-rate');
+                inputs.forEach(input => {
+                    input.addEventListener('input', () => {
+                        calculateRowAmount(row);
+                        calculateAll();
+                    });
+                });
+            });
+        }
+
+        function calculateRowAmount(row) {
+            const meters = parseFloat(row.querySelector('.meter-input').value) || 0;
+            const rate = parseFloat(row.querySelector('.rate-input').value) || 0;
+            const discRate = parseFloat(row.querySelector('.disc-rate').value) || 0;
+            
+            const grossAmount = meters * rate;
+            const discAmount = (grossAmount * discRate) / 100;
+            const netAmount = grossAmount - discAmount;
+            
+            row.querySelector('.disc-amount').value = discAmount.toFixed(2);
+            row.querySelector('.amount-input').value = netAmount.toFixed(2);
         }
 
         function addRow() {
@@ -531,31 +473,24 @@
                 <td class="center-align">${rowCounter}</td>
                 <td><input type="text" class="editable" placeholder="Item description"></td>
                 <td><input type="text" class="editable center-align" placeholder="9988"></td>
-                <td><input type="text" class="editable center-align" placeholder="5"></td>
+                <td><input type="number" step="0.01" class="editable center-align gst-rate" placeholder="5" value="5"></td>
                 <td><input type="number" step="0.01" class="editable right-align meter-input" placeholder="0.00"></td>
-                <td><input type="text" class="editable center-align"></td>
+                <td><input type="number" class="editable center-align pcs-input"></td>
                 <td><input type="number" step="0.01" class="editable right-align rate-input" placeholder="0.00"></td>
-                <td><input type="text" class="editable center-align"></td>
-                <td><input type="text" class="editable"></td>
-                <td><input type="number" step="0.01" class="editable right-align amount-input" placeholder="0.00"></td>
+                <td><input type="number" step="0.01" class="editable center-align disc-rate" placeholder="0"></td>
+                <td><input type="number" step="0.01" class="editable right-align disc-amount calculated-field" placeholder="0.00" readonly></td>
+                <td><input type="number" step="0.01" class="editable right-align amount-input calculated-field" placeholder="0.00" readonly></td>
                 <td class="center-align"><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
             `;
             tbody.appendChild(newRow);
-
-            // Add auto-calculation on meter/rate change
-            const meterInput = newRow.querySelector('.meter-input');
-            const rateInput = newRow.querySelector('.rate-input');
-            const amountInput = newRow.querySelector('.amount-input');
-
-            meterInput.addEventListener('input', () => autoCalculateAmount(meterInput, rateInput, amountInput));
-            rateInput.addEventListener('input', () => autoCalculateAmount(meterInput, rateInput, amountInput));
+            attachCalculationListeners();
         }
 
         function deleteRow(btn) {
             const row = btn.closest('tr');
             row.remove();
             updateRowNumbers();
-            calculateTotal();
+            calculateAll();
         }
 
         function updateRowNumbers() {
@@ -566,45 +501,176 @@
             rowCounter = rows.length;
         }
 
-        function autoCalculateAmount(meterInput, rateInput, amountInput) {
-            const meters = parseFloat(meterInput.value) || 0;
-            const rate = parseFloat(rateInput.value) || 0;
-            const amount = meters * rate;
-            amountInput.value = amount.toFixed(2);
-        }
-
-        function calculateTotal() {
+        function calculateAll() {
             const rows = document.querySelectorAll('#invoiceItems tr');
             let totalMeters = 0;
+            let totalPcs = 0;
+            let totalDiscount = 0;
             let totalAmount = 0;
+            
+            const gstGroups = {};
 
             rows.forEach(row => {
-                const meterInput = row.querySelector('.meter-input');
-                const amountInput = row.querySelector('.amount-input');
+                const meters = parseFloat(row.querySelector('.meter-input').value) || 0;
+                const pcs = parseFloat(row.querySelector('.pcs-input').value) || 0;
+                const discAmount = parseFloat(row.querySelector('.disc-amount').value) || 0;
+                const amount = parseFloat(row.querySelector('.amount-input').value) || 0;
+                const gstRate = parseFloat(row.querySelector('.gst-rate').value) || 0;
 
-                if (meterInput && amountInput) {
-                    totalMeters += parseFloat(meterInput.value) || 0;
-                    totalAmount += parseFloat(amountInput.value) || 0;
+                totalMeters += meters;
+                totalPcs += pcs;
+                totalDiscount += discAmount;
+                totalAmount += amount;
+
+                // Group by GST rate
+                if (amount > 0) {
+                    if (!gstGroups[gstRate]) {
+                        gstGroups[gstRate] = 0;
+                    }
+                    gstGroups[gstRate] += amount;
                 }
             });
 
+            // Update totals
             document.getElementById('totalMeters').textContent = totalMeters.toFixed(2);
+            document.getElementById('totalPcs').textContent = Math.round(totalPcs);
+            document.getElementById('totalDiscount').textContent = totalDiscount.toFixed(2);
             document.getElementById('totalAmount').textContent = totalAmount.toFixed(2);
-            document.getElementById('gstTaxable').value = totalAmount.toFixed(2);
-            document.getElementById('gstTaxableTotal').textContent = totalAmount.toFixed(2);
+            document.getElementById('netTaxable').textContent = totalAmount.toFixed(2);
+
+            // Calculate GST Summary
+            calculateGSTSummary(gstGroups, totalAmount);
+
+            // Update amount in words
+            updateAmountInWords();
         }
 
-        // Add auto-calculation for initial row
-        document.addEventListener('DOMContentLoaded', function () {
-            const firstRow = document.querySelector('#invoiceItems tr');
-            const meterInput = firstRow.querySelector('.meter-input');
-            const rateInput = firstRow.querySelector('.rate-input');
-            const amountInput = firstRow.querySelector('.amount-input');
+        function calculateGSTSummary(gstGroups, totalAmount) {
+            const sellerState = document.getElementById('sellerState').value.trim().toLowerCase();
+            const buyerState = document.getElementById('buyerState').value.trim().toLowerCase();
+            
+            // Determine if IGST or CGST+SGST
+            const isIGST = sellerState !== buyerState && buyerState !== '';
 
-            meterInput.addEventListener('input', () => autoCalculateAmount(meterInput, rateInput, amountInput));
-            rateInput.addEventListener('input', () => autoCalculateAmount(meterInput, rateInput, amountInput));
-        });
+            const gstSummaryBody = document.getElementById('gstSummaryBody');
+            gstSummaryBody.innerHTML = '';
+
+            let totalCGST = 0;
+            let totalSGST = 0;
+            let totalIGST = 0;
+            let totalTaxableValue = 0;
+
+            // Sort GST rates
+            const sortedRates = Object.keys(gstGroups).sort((a, b) => parseFloat(a) - parseFloat(b));
+
+            sortedRates.forEach(gstRate => {
+                const taxableValue = gstGroups[gstRate];
+                totalTaxableValue += taxableValue;
+
+                let cgstRate = 0, cgstAmount = 0;
+                let sgstRate = 0, sgstAmount = 0;
+                let igstRate = 0, igstAmount = 0;
+
+                if (isIGST) {
+                    igstRate = parseFloat(gstRate);
+                    igstAmount = (taxableValue * igstRate) / 100;
+                    totalIGST += igstAmount;
+                } else {
+                    cgstRate = parseFloat(gstRate) / 2;
+                    sgstRate = parseFloat(gstRate) / 2;
+                    cgstAmount = (taxableValue * cgstRate) / 100;
+                    sgstAmount = (taxableValue * sgstRate) / 100;
+                    totalCGST += cgstAmount;
+                    totalSGST += sgstAmount;
+                }
+
+                const totalTax = cgstAmount + sgstAmount + igstAmount;
+
+                const row = document.createElement('tr');
+                row.className = 'center-align';
+                row.innerHTML = `
+                    <td>${gstRate}%</td>
+                    <td class="right-align">${taxableValue.toFixed(2)}</td>
+                    <td>${cgstRate > 0 ? cgstRate.toFixed(2) + '%' : '-'}</td>
+                    <td class="right-align">${cgstAmount > 0 ? cgstAmount.toFixed(2) : '-'}</td>
+                    <td>${sgstRate > 0 ? sgstRate.toFixed(2) + '%' : '-'}</td>
+                    <td class="right-align">${sgstAmount > 0 ? sgstAmount.toFixed(2) : '-'}</td>
+                    <td>${igstRate > 0 ? igstRate.toFixed(2) + '%' : '-'}</td>
+                    <td class="right-align">${igstAmount > 0 ? igstAmount.toFixed(2) : '-'}</td>
+                    <td></td>
+                    <td class="right-align">${totalTax.toFixed(2)}</td>
+                `;
+                gstSummaryBody.appendChild(row);
+            });
+
+            // Update totals
+            document.getElementById('gstTaxableTotal').textContent = totalTaxableValue.toFixed(2);
+            document.getElementById('cgstTotal').textContent = totalCGST > 0 ? totalCGST.toFixed(2) : '-';
+            document.getElementById('sgstTotal').textContent = totalSGST > 0 ? totalSGST.toFixed(2) : '-';
+            document.getElementById('igstTotal').textContent = totalIGST > 0 ? totalIGST.toFixed(2) : '-';
+            
+            const totalGSTAmount = totalCGST + totalSGST + totalIGST;
+            document.getElementById('totalTaxAmount').textContent = totalGSTAmount.toFixed(2);
+            document.getElementById('totalGST').textContent = totalGSTAmount.toFixed(2);
+
+            // Grand Total
+            const grandTotal = totalAmount + totalGSTAmount;
+            document.getElementById('grandTotal').textContent = grandTotal.toFixed(2);
+        }
+
+        function updateAmountInWords() {
+            const grandTotal = parseFloat(document.getElementById('grandTotal').textContent) || 0;
+            const words = numberToWords(Math.round(grandTotal));
+            document.getElementById('amountInWords').value = words + ' Rupees Only';
+        }
+
+        function numberToWords(num) {
+            if (num === 0) return 'Zero';
+
+            const ones = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine'];
+            const tens = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+            const teens = ['Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
+
+            function convertHundreds(n) {
+                let str = '';
+                if (n > 99) {
+                    str += ones[Math.floor(n / 100)] + ' Hundred ';
+                    n %= 100;
+                }
+                if (n > 19) {
+                    str += tens[Math.floor(n / 10)] + ' ';
+                    n %= 10;
+                }
+                if (n > 9 && n < 20) {
+                    str += teens[n - 10] + ' ';
+                    n = 0;
+                }
+                if (n > 0 && n < 10) {
+                    str += ones[n] + ' ';
+                }
+                return str.trim();
+            }
+
+            let result = '';
+            
+            if (num >= 10000000) {
+                result += convertHundreds(Math.floor(num / 10000000)) + ' Crore ';
+                num %= 10000000;
+            }
+            if (num >= 100000) {
+                result += convertHundreds(Math.floor(num / 100000)) + ' Lakh ';
+                num %= 100000;
+            }
+            if (num >= 1000) {
+                result += convertHundreds(Math.floor(num / 1000)) + ' Thousand ';
+                num %= 1000;
+            }
+            if (num > 0) {
+                result += convertHundreds(num);
+            }
+
+            return result.trim();
+        }
     </script>
 </body>
-
 </html>
