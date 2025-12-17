@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -48,7 +49,8 @@
             margin-bottom: 0;
         }
 
-        td, th {
+        td,
+        th {
             border: 1px solid #000;
             padding: 4px 6px;
             font-size: 11px;
@@ -178,6 +180,52 @@
             .btn-container {
                 display: none !important;
             }
+
+            .action-column {
+                display: none !important;
+            }
+
+            .delete-btn {
+                display: none !important;
+            }
+
+            .company-header-gradient {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            .company-info-gradient {
+                background: linear-gradient(to right, #f5f5f5, #ffffff) !important;
+                border-left: 4px solid #667eea !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            .company-name-text {
+                color: white !important;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            .gst-color {
+                color: #667eea !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            .contact-color {
+                color: #764ba2 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            .section-header {
+                background: #e0e0e0 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
         }
 
         .delete-btn {
@@ -200,6 +248,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="invoice-container">
         <div class="content">
@@ -211,20 +260,26 @@
                 </tr>
                 <tr>
                     <td colspan="3" rowspan="3" style="vertical-align: top;">
-                        <p class="bold" style="margin:0; font-weight: bold; color: blue; font-size: 24px; text-transform: uppercase; text-shadow: 2px 2px 4px #c8c0c0;">
+                          <p class="bold" style="margin:0; font-weight: bold; color: blue; font-size: 24px; text-transform: uppercase; text-shadow: 2px 2px 4px #c8c0c0;">
                             SAARA IMPEX
                         </p>
-                        <p style="margin:0 0 8px 0;font-weight: 400;">
-                            Plot No. 42, Gr. Floor, Parmanand Industrial Society,<br>
-                            Nr Jogimata Mandir, Udhna Magdalla Road, Surat
-                        </p>
-                        <p style="margin:0 0 8px 0;font-weight: bold;">
-                            GST No.24LXZPS9106G1ZJ
-                        </p>
-                        <p style="margin:0 0 8px 0;font-weight: bold;">
-                            Tabrez<br>
-                            9833629486 / 7575040185
-                        </p>
+                        <div class="company-info-gradient"
+                            style="background: linear-gradient(to right, #f5f5f5, #ffffff); padding: 12px; margin-top: 8px; border-left: 4px solid #667eea; border-radius: 5px;">
+                            <p
+                                style="margin:0 0 8px 0; font-weight: 500; font-size: 11px; line-height: 1.5; color: #333;">
+                                📍 Plot No. 42, Gr. Floor, Parmanand Industrial Society,<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;Nr Jogimata Mandir, Udhna Magdalla Road, Surat
+                            </p>
+                            <p class="gst-color"
+                                style="margin:0 0 8px 0; font-weight: bold; color: #667eea; font-size: 11px;">
+                                🏢 GST No. 24LXZPS9106G1ZJ
+                            </p>
+                            <p class="contact-color"
+                                style="margin:0; font-weight: bold; color: #764ba2; font-size: 11px;">
+                                👤 Tabrez<br>
+                                📞 9833629486 / 7575040185
+                            </p>
+                        </div>
                     </td>
                     <td class="bold">Invoice Date</td>
                     <td>: <input type="date" class="editable" id="invoiceDate"></td>
@@ -235,13 +290,15 @@
                 </tr>
                 <tr>
                     <td class="bold">L.R.No.</td>
-                    <td>: <input type="text" class="editable" style="width: 60px;"> <span class="bold">Parcel :</span></td>
+                    <td>: <input type="text" class="editable" style="width: 60px;"> <span class="bold">Parcel :</span>
+                    </td>
                 </tr>
                 <tr>
                     <td class="bold">GSTIN :</td>
                     <td colspan="2"><input type="text" class="editable" id="sellerGSTIN"></td>
                     <td class="bold">L.R.Date</td>
-                    <td>: <input type="date" class="editable" style="width: 140px;"> <span class="bold">Weight :</span></td>
+                    <td>: <input type="date" class="editable" style="width: 140px;"> <span class="bold">Weight :</span>
+                    </td>
                 </tr>
                 <tr>
                     <td class="bold">State :</td>
@@ -253,7 +310,8 @@
                     <td class="bold">Phone:</td>
                     <td colspan="2"><input type="text" class="editable"></td>
                     <td class="bold">Vehicle No.</td>
-                    <td>: <input type="text" class="editable" style="width: 100px;"> <span class="bold">Freight :</span></td>
+                    <td>: <input type="text" class="editable" style="width: 100px;"> <span class="bold">Freight :</span>
+                    </td>
                 </tr>
                 <tr>
                     <td class="bold">E mail :</td>
@@ -265,11 +323,13 @@
                 </tr>
                 <tr>
                     <td colspan="3" style="vertical-align: top;">
-                        <input type="text" class="editable" placeholder="Buyer company name" style="font-weight: bold; margin-bottom: 5px;">
+                        <input type="text" class="editable" placeholder="Buyer company name"
+                            style="font-weight: bold; margin-bottom: 5px;">
                         <input type="text" class="editable" placeholder="Buyer address">
                     </td>
                     <td colspan="2" style="vertical-align: top;">
-                        <input type="text" class="editable" placeholder="Consignee company name" style="font-weight: bold; margin-bottom: 5px;">
+                        <input type="text" class="editable" placeholder="Consignee company name"
+                            style="font-weight: bold; margin-bottom: 5px;">
                         <input type="text" class="editable" placeholder="Consignee address">
                     </td>
                 </tr>
@@ -307,7 +367,7 @@
                         <th style="width: 60px;">Disc<br>Rate(%)</th>
                         <th style="width: 80px;">Disc<br>Amount</th>
                         <th style="width: 100px;">Amount</th>
-                        <th style="width: 50px;">Action</th>
+                        <th style="width: 50px;" class="action-column">Action</th>
                     </tr>
                 </thead>
                 <tbody id="invoiceItems">
@@ -315,14 +375,21 @@
                         <td class="center-align">1</td>
                         <td><input type="text" class="editable" placeholder="Item description"></td>
                         <td><input type="text" class="editable center-align" placeholder="9988"></td>
-                        <td><input type="number" step="0.01" class="editable center-align gst-rate" placeholder="5" value="5"></td>
-                        <td><input type="number" step="0.01" class="editable right-align meter-input" placeholder="0.00"></td>
+                        <td><input type="number" step="0.01" class="editable center-align gst-rate" placeholder="5"
+                                value="5"></td>
+                        <td><input type="number" step="0.01" class="editable right-align meter-input"
+                                placeholder="0.00"></td>
                         <td><input type="number" class="editable center-align pcs-input"></td>
-                        <td><input type="number" step="0.01" class="editable right-align rate-input" placeholder="0.00"></td>
-                        <td><input type="number" step="0.01" class="editable center-align disc-rate" placeholder="0"></td>
-                        <td><input type="number" step="0.01" class="editable right-align disc-amount calculated-field" placeholder="0.00" readonly></td>
-                        <td><input type="number" step="0.01" class="editable right-align amount-input calculated-field" placeholder="0.00" readonly></td>
-                        <td class="center-align"><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
+                        <td><input type="number" step="0.01" class="editable right-align rate-input" placeholder="0.00">
+                        </td>
+                        <td><input type="number" step="0.01" class="editable center-align disc-rate" placeholder="0">
+                        </td>
+                        <td><input type="number" step="0.01" class="editable right-align disc-amount calculated-field"
+                                placeholder="0.00" readonly></td>
+                        <td><input type="number" step="0.01" class="editable right-align amount-input calculated-field"
+                                placeholder="0.00" readonly></td>
+                        <td class="center-align action-column"><button class="delete-btn"
+                                onclick="deleteRow(this)">Delete</button></td>
                     </tr>
                 </tbody>
                 <tfoot>
@@ -334,7 +401,7 @@
                         <td></td>
                         <td class="right-align" id="totalDiscount">0.00</td>
                         <td class="right-align" id="totalAmount">0.00</td>
-                        <td></td>
+                        <td class="action-column"></td>
                     </tr>
                 </tfoot>
             </table>
@@ -342,18 +409,22 @@
             <table style="margin-top: 0;">
                 <tr>
                     <td colspan="5" class="bold">Bank Detail</td>
-                    <td rowspan="3" colspan="3" class="bold right-align" style="font-size: 13px; vertical-align: middle;">
+                    <td rowspan="3" colspan="3" class="bold right-align"
+                        style="font-size: 13px; vertical-align: middle;">
                         Taxable Amount: <span id="netTaxable">0.00</span>
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="5"><span class="bold">Bank :</span> <input type="text" class="editable" placeholder="Bank name"></td>
+                    <td colspan="5"><span class="bold">Bank :</span> <input type="text" class="editable"
+                            placeholder="Bank name"></td>
                 </tr>
                 <tr>
-                    <td colspan="5"><span class="bold">A/c.No:</span> <input type="text" class="editable" placeholder="Account number"></td>
+                    <td colspan="5"><span class="bold">A/c.No:</span> <input type="text" class="editable"
+                            placeholder="Account number"></td>
                 </tr>
                 <tr>
-                    <td colspan="5"><span class="bold">IFSC :</span> <input type="text" class="editable" placeholder="IFSC code"></td>
+                    <td colspan="5"><span class="bold">IFSC :</span> <input type="text" class="editable"
+                            placeholder="IFSC code"></td>
                     <td colspan="3" class="bold right-align" style="font-size: 13px;">
                         Total GST: <span id="totalGST">0.00</span>
                     </td>
@@ -363,7 +434,8 @@
                     <td colspan="3" class="bold right-align" style="font-size: 14px;" id="grandTotal">0.00</td>
                 </tr>
                 <tr>
-                    <td colspan="8" class="bold">In Word : <input type="text" class="editable" id="amountInWords" placeholder="Amount in words" style="width: 85%;"></td>
+                    <td colspan="8" class="bold">In Word : <input type="text" class="editable" id="amountInWords"
+                            placeholder="Amount in words" style="width: 85%;"></td>
                 </tr>
             </table>
 
@@ -435,7 +507,7 @@
         let rowCounter = 1;
 
         // Auto-calculate on input changes
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             attachCalculationListeners();
         });
 
@@ -456,11 +528,11 @@
             const meters = parseFloat(row.querySelector('.meter-input').value) || 0;
             const rate = parseFloat(row.querySelector('.rate-input').value) || 0;
             const discRate = parseFloat(row.querySelector('.disc-rate').value) || 0;
-            
+
             const grossAmount = meters * rate;
             const discAmount = (grossAmount * discRate) / 100;
             const netAmount = grossAmount - discAmount;
-            
+
             row.querySelector('.disc-amount').value = discAmount.toFixed(2);
             row.querySelector('.amount-input').value = netAmount.toFixed(2);
         }
@@ -480,7 +552,7 @@
                 <td><input type="number" step="0.01" class="editable center-align disc-rate" placeholder="0"></td>
                 <td><input type="number" step="0.01" class="editable right-align disc-amount calculated-field" placeholder="0.00" readonly></td>
                 <td><input type="number" step="0.01" class="editable right-align amount-input calculated-field" placeholder="0.00" readonly></td>
-                <td class="center-align"><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
+                <td class="center-align action-column"><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
             `;
             tbody.appendChild(newRow);
             attachCalculationListeners();
@@ -507,7 +579,7 @@
             let totalPcs = 0;
             let totalDiscount = 0;
             let totalAmount = 0;
-            
+
             const gstGroups = {};
 
             rows.forEach(row => {
@@ -548,7 +620,7 @@
         function calculateGSTSummary(gstGroups, totalAmount) {
             const sellerState = document.getElementById('sellerState').value.trim().toLowerCase();
             const buyerState = document.getElementById('buyerState').value.trim().toLowerCase();
-            
+
             // Determine if IGST or CGST+SGST
             const isIGST = sellerState !== buyerState && buyerState !== '';
 
@@ -608,7 +680,7 @@
             document.getElementById('cgstTotal').textContent = totalCGST > 0 ? totalCGST.toFixed(2) : '-';
             document.getElementById('sgstTotal').textContent = totalSGST > 0 ? totalSGST.toFixed(2) : '-';
             document.getElementById('igstTotal').textContent = totalIGST > 0 ? totalIGST.toFixed(2) : '-';
-            
+
             const totalGSTAmount = totalCGST + totalSGST + totalIGST;
             document.getElementById('totalTaxAmount').textContent = totalGSTAmount.toFixed(2);
             document.getElementById('totalGST').textContent = totalGSTAmount.toFixed(2);
@@ -652,7 +724,7 @@
             }
 
             let result = '';
-            
+
             if (num >= 10000000) {
                 result += convertHundreds(Math.floor(num / 10000000)) + ' Crore ';
                 num %= 10000000;
@@ -673,4 +745,5 @@
         }
     </script>
 </body>
+
 </html>
